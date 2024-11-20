@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Detail = () => {
   const { id } = useParams(); // ดึง `id` จาก URL
@@ -12,11 +12,11 @@ const Detail = () => {
       try {
         const response = await fetch(`https://fakestoreapi.com/products/${id}`);
         if (!response.ok) {
-          throw new Error("Failed to fetch product");
+          throw new Error('Failed to fetch product');
         }
         const data = await response.json();
-        setProduct(data);
-        setLoading(false);
+        setProduct(data); // บันทึกข้อมูลสินค้า
+        setLoading(false); // เปลี่ยนสถานะเมื่อโหลดเสร็จ
       } catch (err) {
         setError(err.message);
         setLoading(false);
@@ -27,7 +27,7 @@ const Detail = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>; // แสดงข้อความขณะโหลดข้อมูล
+    return <div>Loading...</div>; // แสดงข้อความขณะกำลังโหลด
   }
 
   if (error) {
@@ -39,11 +39,7 @@ const Detail = () => {
       <h1>Product Detail</h1>
       {product && (
         <div>
-          <img
-            src={product.image}
-            alt={product.title}
-            style={{ maxWidth: "300px" }}
-          />
+          <img src={product.image} alt={product.title} style={{ maxWidth: '300px' }} />
           <h2>{product.title}</h2>
           <p>{product.description}</p>
           <p>Category: {product.category}</p>
